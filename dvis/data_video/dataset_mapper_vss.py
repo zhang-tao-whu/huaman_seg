@@ -178,6 +178,7 @@ class SemanticDatasetVideoMapper:
         for i in range(len(dataset_dict["frame_idx"])):
             instances = Instances(image_shape)
             instances.gt_masks = masks[:, i]
+            print(instances.gt_masks.shape)
             instances.gt_classes = copy.deepcopy(classes)
             instances.gt_ids = torch.arange(0, masks.size(0))
             ret["instances"].append(instances)
