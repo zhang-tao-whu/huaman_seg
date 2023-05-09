@@ -734,7 +734,7 @@ class HumanSemanticClipDatasetMapper:
             aug_input = T.AugInput(original_image, sem_seg=sem_seg)
             transforms = self.augmentations(aug_input)
             image = aug_input.image
-            sem_seg = aug_input.sem_seg
+            sem_seg_gt = aug_input.sem_seg
 
             image_shape = image.shape[:2]  # h, w
             # Pytorch's dataloader is efficient on torch.Tensor due to shared-memory,
@@ -742,7 +742,7 @@ class HumanSemanticClipDatasetMapper:
             # Therefore it's important to use torch.Tensor.
             dataset_dict["image"].append(torch.as_tensor(np.ascontiguousarray(image.transpose(2, 0, 1))))
 
-            if (sem_seg is None) or (not self.is_train):
+            if (sem_seg_gt is None) or (not self.is_train):
                 continue
 
             if sem_seg_gt is not None:
