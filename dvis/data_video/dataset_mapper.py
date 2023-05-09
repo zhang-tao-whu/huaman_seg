@@ -622,6 +622,7 @@ class HumanSemanticClipDatasetMapper:
         self.reverse_agu            = reverse_agu
         self.sampling_frame_ratio   = 1.0
         self.metadata               = MetadataCatalog.get(src_dataset_name)
+        self.ignore_label           = 255
 
         self.ids_to_continue_dic = self.metadata.stuff_dataset_id_to_contiguous_id
 
