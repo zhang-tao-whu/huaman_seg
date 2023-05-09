@@ -594,6 +594,7 @@ class HumanSemanticClipDatasetMapper:
     def __init__(
         self,
         is_train: bool,
+        is_tgt: bool,
         *,
         augmentations: List[Union[T.Augmentation, T.Transform]],
         image_format: str,
@@ -601,7 +602,8 @@ class HumanSemanticClipDatasetMapper:
         sampling_frame_range: int = 5,
         sampling_frame_shuffle: bool = False,
         reverse_agu: bool = False,
-        dataset_name: str = "",
+        src_dataset_name: str = "",
+        tgt_dataset_name: str = "",
     ):
         """
         NOTE: this interface is experimental.
@@ -619,7 +621,7 @@ class HumanSemanticClipDatasetMapper:
         self.sampling_frame_shuffle = sampling_frame_shuffle
         self.reverse_agu            = reverse_agu
         self.sampling_frame_ratio   = 1.0
-        self.metadata               = MetadataCatalog.get(dataset_name)
+        self.metadata               = MetadataCatalog.get(src_dataset_name)
 
         self.ids_to_continue_dic = self.metadata.stuff_dataset_id_to_contiguous_id
 
