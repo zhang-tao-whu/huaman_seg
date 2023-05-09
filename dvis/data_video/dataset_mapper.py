@@ -751,6 +751,12 @@ class HumanSemanticClipDatasetMapper:
                 classes = np.unique(sem_seg_gt)
                 # remove ignored region
                 classes = classes[classes != self.ignore_label]
+                classes_ = []
+                for _cls in classes:
+                    if _cls not in self.ids_to_continue_dic:
+                        continue
+                    classes_.append(_cls)
+                classes = np.array(classes_)
                 instances.gt_classes = torch.tensor(np.array([self.ids_to_continue_dic[_c] for _c in classes]), dtype=torch.int64)
                 instances.gt_ids = instances.gt_classes
 
