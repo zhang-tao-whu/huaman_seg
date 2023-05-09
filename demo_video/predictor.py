@@ -55,6 +55,8 @@ def _get_objects_from_outputs(outputs):
         sem_seg = outputs['pred_masks']
         sem_cats = np.unique(sem_seg)  # get valid class
         for cls in sem_cats:
+            if cls == -1:
+                continue
             pred_scores.append(1)
             pred_labels.append(cls)
             pred_masks.append(sem_seg == cls)

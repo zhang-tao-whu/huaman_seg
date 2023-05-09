@@ -221,6 +221,46 @@ def get_metadata():
 
     return meta
 
+def get_human_metadata():
+    categories = [
+     {"id": 60, "name": "person", "isthing": 1, "color": [11, 200, 200]},
+     ]
+    categories_ = []
+    for item in categories:
+        if item['isthing']:
+            categories_.append(item)
+    for item in categories:
+        if item['isthing'] == 0:
+            categories_.append(item)
+    categories = categories_
+    meta = {}
+    # The following metadata maps contiguous id from [0, #thing categories +
+    # #stuff categories) to their names and colors. We have to replica of the
+    # same name and color under "thing_*" and "stuff_*" because the current
+    # visualization function in D2 handles thing and class classes differently
+    # due to some heuristic used in Panoptic FPN. We keep the same naming to
+    # enable reusing existing visualization functions.
+
+    classes = [k["name"] for k in categories]
+    colors = [k["color"] for k in categories]
+
+    meta["stuff_classes"] = classes
+    meta["stuff_colors"] = colors
+    meta["thing_classes"] = None
+    meta["thing_colors"] = None
+
+    classes_id = [k['id'] for k in categories]
+    meta['stuff_classes_id'] = classes_id
+    meta['thing_classes_id'] = None
+
+    dataset_id_to_contiguous_id = {}
+
+    for i, id_ in enumerate(classes_id):
+        dataset_id_to_contiguous_id[id_] = i
+    meta["stuff_dataset_id_to_contiguous_id"] = dataset_id_to_contiguous_id
+    meta["thing_dataset_id_to_contiguous_id"] = None
+
+    return meta
 
 _PREDEFINED_SPLITS_PANOVSPW = {
     "VSPW_vss_video_train": (
@@ -252,6 +292,21 @@ def register_all_video_panoVSPW(root):
             os.path.join(root, split_txt),
         )
 
+def register_all_human_video_panoVSPW(root):
+    for (
+            prefix,
+            (image_root, split_txt),
+    ) in _PREDEFINED_SPLITS_PANOVSPW.items():
+        metadata = get_human_metadata()
+        # The "standard" version of COCO panoptic segmentation dataset,
+        # e.g. used by Panoptic-DeepLab
+        register_video_vspw_vss(
+            'human_' + prefix,
+            metadata,
+            os.path.join(root, image_root),
+            os.path.join(root, split_txt),
+        )
 
 _root = os.getenv("DETECTRON2_DATASETS", "datasets")
 register_all_video_panoVSPW(_root)
+register_all_human_video_panoVSPW(_root)

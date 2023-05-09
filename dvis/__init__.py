@@ -17,6 +17,7 @@ from .meta_architecture import MinVIS, DVIS_online, DVIS_offline
 from .data_video import (
     YTVISDatasetMapper,
     CocoClipDatasetMapper,
+    HumanSemanticClipDatasetMapper,
     YTVISEvaluator,
     PanopticDatasetVideoMapper,
     SemanticDatasetVideoMapper,
