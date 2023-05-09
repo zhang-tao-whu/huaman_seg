@@ -345,7 +345,6 @@ class MinVIS(nn.Module):
                 if isinstance(targets_per_frame.gt_masks, BitMasks):
                     gt_masks_per_video[:, f_i, :h, :w] = targets_per_frame.gt_masks.tensor
                 else:  # polygon
-                    print(targets_per_frame.gt_masks.shape)
                     gt_masks_per_video[:, f_i, :h, :w] = targets_per_frame.gt_masks
 
             gt_ids_per_video = torch.cat(gt_ids_per_video, dim=1)

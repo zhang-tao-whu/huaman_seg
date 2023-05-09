@@ -714,6 +714,7 @@ class HumanSemanticClipDatasetMapper:
         sem_seg = dataset_dict.pop("sem_seg_file_name", None)
         if sem_seg is not None:
             sem_seg = utils.read_image(sem_seg).astype(np.uint8)
+            print(sem_seg.shape)
         file_name = dataset_dict.pop("file_name", None)
         original_image = utils.read_image(file_name, format=self.image_format)
 
