@@ -187,6 +187,7 @@ class SemanticDatasetVideoMapper:
 
     def _vspw_preprocess(self, sem_seg_gt):
         sem_seg_gt = sem_seg_gt[:, :, 0]
+        sem_seg_gt = sem_seg_gt.copy()
         sem_seg_gt[sem_seg_gt == 0] = 255
         sem_seg_gt = sem_seg_gt - 1
         sem_seg_gt[sem_seg_gt == 254] = 255
