@@ -746,7 +746,6 @@ class HumanSemanticClipDatasetMapper:
                 continue
 
             if sem_seg_gt is not None:
-                sem_seg_gt = sem_seg_gt.numpy()
                 instances = Instances(image_shape)
                 classes = np.unique(sem_seg_gt)
                 # remove ignored region
