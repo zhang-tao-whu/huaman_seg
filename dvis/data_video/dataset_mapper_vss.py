@@ -10,7 +10,6 @@ from detectron2.data import MetadataCatalog
 from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
 from detectron2.structures import BitMasks, Instances, Boxes
-from .augmentation import ResizeShortestEdge
 
 from .utils import Video_BitMasks, Video_Boxes
 import random
@@ -64,9 +63,11 @@ class SemanticDatasetVideoMapper:
         # Build augmentation
         if is_train:
             augs = [
-                ResizeShortestEdge(cfg.INPUT.MIN_SIZE_TRAIN, cfg.INPUT.MAX_SIZE_TRAIN,
-                                   cfg.INPUT.MIN_SIZE_TRAIN_SAMPLING,
-                                   clip_frame_cnt=cfg.INPUT.SAMPLING_FRAME_NUM),
+                T.ResizeShortestEdge(
+                    cfg.INPUT.MIN_SIZE_TRAIN,
+                    cfg.INPUT.MAX_SIZE_TRAIN,
+                    'choice',
+                )
             ]
             if cfg.INPUT.CROP.ENABLED:
                 augs.append(
