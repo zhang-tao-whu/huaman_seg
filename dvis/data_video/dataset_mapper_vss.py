@@ -152,7 +152,6 @@ class SemanticDatasetVideoMapper:
     def convert2ytvis(self, dataset_dict):
         ret = {}
         ret["image"] = [item[0] for item in torch.split(dataset_dict["video_images"], 1, dim=0)]
-        print(ret['image'][0].shape)
         if not self.is_train:
             dataset_dict.update(ret)
             return
