@@ -646,7 +646,6 @@ class HumanSemanticClipDatasetMapper:
             "sampling_frame_range": sampling_frame_range,
             "sampling_frame_shuffle": sampling_frame_shuffle,
             "reverse_agu": reverse_agu,
-            "dataset_name": dataset_name,
         }
 
         return ret
