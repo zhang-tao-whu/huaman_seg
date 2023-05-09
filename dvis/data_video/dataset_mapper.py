@@ -742,6 +742,7 @@ class HumanSemanticClipDatasetMapper:
             # but not efficient on large generic data structures due to the use of pickle & mp.Queue.
             # Therefore it's important to use torch.Tensor.
             dataset_dict["image"].append(torch.as_tensor(np.ascontiguousarray(image.transpose(2, 0, 1))))
+            print(dataset_dict['image'].shape)
 
             if (sem_seg_gt is None) or (not self.is_train):
                 continue
@@ -772,7 +773,6 @@ class HumanSemanticClipDatasetMapper:
                         torch.stack([torch.from_numpy(np.ascontiguousarray(x.copy())) for x in masks])
                     )
                     instances.gt_masks = masks.tensor
-                    print(instances.gt_masks.shape)
 
                 dataset_dict["instances"].append(instances)
         return dataset_dict
