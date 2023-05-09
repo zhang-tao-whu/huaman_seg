@@ -52,6 +52,7 @@ def register_human_seg(root):
             evaluator_type="sem_seg",
             mask_to_label=True, # 将mask映射为label
             ignore_label=None,
+            **meta,
         )
 
 _root = os.getenv("DETECTRON2_DATASETS", "datasets")
