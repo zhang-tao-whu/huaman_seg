@@ -12,6 +12,7 @@ from detectron2.data import transforms as T
 from detectron2.structures import BitMasks, Instances, Boxes
 from detectron2.projects.point_rend import ColorAugSSDTransform
 from panopticapi.utils import rgb2id
+from .augmentation import ResizeShortestEdge
 
 from .utils import Video_BitMasks, Video_Boxes
 import random
@@ -80,11 +81,9 @@ class PanopticDatasetVideoMapper:
         # Build augmentation
         if is_train:
             augs = [
-                T.ResizeShortestEdge(
-                    cfg.INPUT.MIN_SIZE_TRAIN,
-                    cfg.INPUT.MAX_SIZE_TRAIN,
-                    cfg.INPUT.MIN_SIZE_TRAIN_SAMPLING,
-                )
+                ResizeShortestEdge(cfg.INPUT.MIN_SIZE_TRAIN, cfg.INPUT.MAX_SIZE_TRAIN,
+                                   cfg.INPUT.MIN_SIZE_TRAIN_SAMPLING,
+                                   clip_frame_cnt=cfg.INPUT.SAMPLING_FRAME_NUM),
             ]
             if cfg.INPUT.CROP.ENABLED:
                 augs.append(
