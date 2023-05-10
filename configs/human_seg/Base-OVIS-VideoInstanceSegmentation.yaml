@@ -32,7 +32,7 @@ DATASETS:
   DATASET_TYPE: ['video_semantic', ]
   DATASET_TYPE_TEST: ['video_semantic', ]
   # The categories of all datasets will be mapped to the categories of the last dataset
-  TRAIN: ("human_VSPW_vss_video_train")
+  TRAIN: ("human_VSPW_vss_video_train",)
   TEST: ("human_VSPW_vss_video_val",)
 SOLVER:
   IMS_PER_BATCH: 16
