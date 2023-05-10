@@ -840,7 +840,7 @@ class SemanticClipDatasetMapper:
                 # gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
                 # instances.gt_masks = gt_masks
                 instances.gt_masks = instances.gt_masks.tensor.to(torch.uint8)
-                print(torch.max(instances.gt_masks), torch.mix(instances.gt_masks))
+                print(torch.max(instances.gt_masks), torch.min(instances.gt_masks))
             else:
                 instances.gt_masks = torch.zeros((0, h, w), dtype=torch.uint8)
             dataset_dict["instances"].append(instances)
