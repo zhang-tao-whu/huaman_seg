@@ -754,11 +754,13 @@ class SemanticClipDatasetMapper:
             classes = np.unique(sem_seg)
             # remove ignored region
             classes = classes[classes != self.ignore_label]
-            print(classes)
+            print(self.src2tgt)
             for _cls in classes:
                 if _cls not in self.src2tgt:
                     continue
                 _mask = sem_seg == _cls
+                print(_mask.shape)
+                print(_mask.sum())
                 anno = {"iscrowd": 0, "category_id": _cls, "id": _cls,
                         "bbox": np.array([0, 0, 0, 0]),
                         "bbox_mode": BoxMode.XYXY_ABS,
