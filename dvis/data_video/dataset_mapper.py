@@ -25,6 +25,7 @@ from detectron2.data import MetadataCatalog
 from detectron2.data import detection_utils as utils
 from detectron2.data import transforms as T
 from pycocotools import mask as coco_mask
+import pycocotools.mask as mask_util
 
 from .augmentation import build_augmentation, build_pseudo_augmentation
 
@@ -729,9 +730,11 @@ class SemanticClipDatasetMapper:
             for _cls in classes:
                 if _cls not in self.src2tgt:
                     continue
+                _mask = sem_seg == _cls
                 anno = {"iscrowd": 0, "category_id": _cls, "id": _cls,
                         "bbox": np.array([0, 0, 0, 0]),
-                        "bbox_mode": BoxMode.XYXY_ABS, "segmentation": sem_seg == _cls}
+                        "bbox_mode": BoxMode.XYXY_ABS,
+                        "segmentation": mask_util.encode(np.array(_mask[:, :, None], order="F", dtype="uint8"))[0]}
                 annotations.append(anno)
         dataset_dict_inst.update({'annotations': annotations})
         return dataset_dict_inst
