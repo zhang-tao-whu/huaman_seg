@@ -809,9 +809,10 @@ class SemanticClipDatasetMapper:
             instances = filter_empty_instances(instances)
             h, w = instances.image_size
             if hasattr(instances, 'gt_masks'):
-                gt_masks = instances.gt_masks
-                gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
-                instances.gt_masks = gt_masks
+                # gt_masks = instances.gt_masks
+                # gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
+                # instances.gt_masks = gt_masks
+                instances.gt_masks = instances.gt_masks.to(torch.uint8)
             else:
                 instances.gt_masks = torch.zeros((0, h, w), dtype=torch.uint8)
             dataset_dict["instances"].append(instances)
