@@ -775,6 +775,8 @@ class HumanSemanticClipDatasetMapper:
                         torch.stack([torch.from_numpy(np.ascontiguousarray(x.copy())) for x in masks])
                     )
                     instances.gt_masks = masks.tensor
+                    print(instances.gt_masks.shape)
+                    print(instances.gt_masks.sum())
 
                 dataset_dict["instances"].append(instances)
         return dataset_dict
