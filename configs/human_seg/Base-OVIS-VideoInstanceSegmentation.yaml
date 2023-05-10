@@ -20,7 +20,7 @@ MODEL:
       WINDOW_INFERENCE: True
       TASK: 'vss'
 DATASETS:
-  DATASET_RATIO: [1.0, 0.5]
+  DATASET_RATIO: [0.01, 0.5]
   DATASET_NEED_MAP: [True, False]
   DATASET_TYPE: ['image_semantic', 'video_semantic', ]
   DATASET_TYPE_TEST: ['video_semantic', ]
