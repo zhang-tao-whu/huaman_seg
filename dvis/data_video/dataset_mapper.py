@@ -839,7 +839,7 @@ class SemanticClipDatasetMapper:
                 # gt_masks = instances.gt_masks
                 # gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
                 # instances.gt_masks = gt_masks
-                instances.gt_masks = instances.gt_masks.to(torch.uint8)
+                instances.gt_masks = instances.gt_masksgt_masks.tensor.to(torch.uint8)
                 print(instances.gt_masks.shape)
                 print(instances.gt_masks.sum())
             else:
