@@ -831,6 +831,7 @@ class SemanticClipDatasetMapper:
                 instances.gt_classes = torch.tensor(
                     [self.src2tgt[c] if c in self.src2tgt else -1 for c in instances.gt_classes.tolist()]
                 )
+            print(instances.gt_classes)
             instances.gt_ids = torch.tensor(_gt_ids)
             # instances.gt_boxes = instances.gt_masks.get_bounding_boxes()  # NOTE we don't need boxes
             instances = filter_empty_instances(instances)
@@ -840,8 +841,6 @@ class SemanticClipDatasetMapper:
                 # gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
                 # instances.gt_masks = gt_masks
                 instances.gt_masks = instances.gt_masks.tensor.to(torch.uint8)
-                print(instances.gt_masks.shape)
-                print(instances.gt_masks.sum())
             else:
                 instances.gt_masks = torch.zeros((0, h, w), dtype=torch.uint8)
             dataset_dict["instances"].append(instances)
