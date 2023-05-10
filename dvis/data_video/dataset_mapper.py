@@ -754,13 +754,10 @@ class SemanticClipDatasetMapper:
             classes = np.unique(sem_seg)
             # remove ignored region
             classes = classes[classes != self.ignore_label]
-            print(self.src2tgt)
             for _cls in classes:
                 if _cls not in self.src2tgt:
                     continue
                 _mask = sem_seg == _cls
-                print(_mask.shape)
-                print(_mask.sum())
                 anno = {"iscrowd": 0, "category_id": _cls, "id": _cls,
                         "bbox": np.array([0, 0, 0, 0]),
                         "bbox_mode": BoxMode.XYXY_ABS,
@@ -843,6 +840,8 @@ class SemanticClipDatasetMapper:
                 # gt_masks = convert_coco_poly_to_mask(gt_masks.polygons, h, w)
                 # instances.gt_masks = gt_masks
                 instances.gt_masks = instances.gt_masks.to(torch.uint8)
+                print(instances.gt_masks.shape)
+                print(instances.gt_masks.sum())
             else:
                 instances.gt_masks = torch.zeros((0, h, w), dtype=torch.uint8)
             dataset_dict["instances"].append(instances)
