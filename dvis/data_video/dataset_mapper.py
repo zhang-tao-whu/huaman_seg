@@ -796,7 +796,7 @@ class SemanticClipDatasetMapper:
                 if len(annos[idx]["segmentation"]) == 0:
                     annos[idx]["segmentation"] = [np.array([0.0] * 6)]
 
-            instances = utils.annotations_to_instances(annos, image_shape)
+            instances = utils.annotations_to_instances(annos, image_shape, mask_format='bitmask')
             if not self.is_tgt:
                 instances.gt_classes = torch.tensor(
                     [self.src2tgt[c] if c in self.src2tgt else -1 for c in instances.gt_classes.tolist()]
