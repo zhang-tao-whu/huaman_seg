@@ -637,6 +637,7 @@ class SemanticClipDatasetMapper:
         logger = logging.getLogger(__name__)
         mode = "training" if is_train else "inference"
         logger.info(f"[DatasetMapper] Augmentations used in {mode}: {augmentations}")
+        self.ignore_label = 255
 
     @classmethod
     def from_config(cls, cfg, is_train: bool = True, is_tgt: bool = True):
