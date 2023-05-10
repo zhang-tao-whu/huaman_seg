@@ -48,7 +48,7 @@ from mask2former_video import add_maskformer2_video_config
 from dvis import (
     YTVISDatasetMapper,
     CocoClipDatasetMapper,
-    HumanSemanticClipDatasetMapper,
+    SemanticClipDatasetMapper,
     PanopticDatasetVideoMapper,
     SemanticDatasetVideoMapper,
     YTVISEvaluator,
@@ -93,7 +93,7 @@ class Trainer(DefaultTrainer):
             'video_panoptic': PanopticDatasetVideoMapper,
             'video_semantic': SemanticDatasetVideoMapper,
             'image_instance': CocoClipDatasetMapper,
-            'image_semantic': HumanSemanticClipDatasetMapper,
+            'image_semantic': SemanticClipDatasetMapper,
         }
         for d_i, (dataset_name, dataset_type, dataset_need_map) in \
                 enumerate(zip(cfg.DATASETS.TRAIN, cfg.DATASETS.DATASET_TYPE, cfg.DATASETS.DATASET_NEED_MAP)):
@@ -122,7 +122,6 @@ class Trainer(DefaultTrainer):
             'video_instance': YTVISDatasetMapper,
             'video_panoptic': PanopticDatasetVideoMapper,
             'video_semantic': SemanticDatasetVideoMapper,
-            'image_semantic': HumanSemanticClipDatasetMapper,
         }
         if dataset_type not in mapper_dict.keys():
             raise NotImplementedError

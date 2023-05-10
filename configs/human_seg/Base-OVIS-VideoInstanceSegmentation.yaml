@@ -21,7 +21,7 @@ MODEL:
       TASK: 'vss'
 DATASETS:
   DATASET_RATIO: [1.0, 0.5]
-  DATASET_NEED_MAP: [False, False]
+  DATASET_NEED_MAP: [True, False]
   DATASET_TYPE: ['image_semantic', 'video_semantic', ]
   DATASET_TYPE_TEST: ['video_semantic', ]
   # The categories of all datasets will be mapped to the categories of the last dataset
