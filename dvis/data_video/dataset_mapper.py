@@ -586,6 +586,33 @@ class CocoClipDatasetMapper:
         return dataset_dict
 
 
+import numpy as np
+from detectron2.data.transforms import Augmentation, Transform
+
+
+class ValueTrans(Transform):
+    """
+    Transform mask value from 0-255 to 0-1.
+    """
+
+    def __init__(self):
+        """
+        Args:
+        """
+        super().__init__()
+
+    def apply_image(self, img):
+        return img
+
+    def apply_coords(self, coords):
+        return coords
+
+    def apply_segmentation(self, segmentation):
+        if len(segmentation.shape) == 3:
+            segmentation = segmentation[:, :, 0]
+        segmentation = np.where(segmentation > 220, 1, 0)
+        return segmentation
+
 class SemanticClipDatasetMapper:
     """
     A callable which takes a COCO image which converts into multiple frames,
@@ -720,8 +747,9 @@ class SemanticClipDatasetMapper:
         sem_seg = dataset_dict.pop("sem_seg_file_name", None)
         if sem_seg is not None:
             sem_seg = utils.read_image(sem_seg)
-            if len(sem_seg.shape) == 3:
-                sem_seg = sem_seg[:, :, 0]
+
+            # only for human dataset
+            sem_seg = ValueTrans().apply_segmentation(sem_seg)
 
             classes = np.unique(sem_seg)
             # remove ignored region
