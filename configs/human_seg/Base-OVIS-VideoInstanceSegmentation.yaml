@@ -20,13 +20,20 @@ MODEL:
       WINDOW_INFERENCE: True
       TASK: 'vss'
 DATASETS:
-  DATASET_RATIO: [1.0, 0.5]
-  DATASET_NEED_MAP: [False, False]
-  DATASET_TYPE: ['image_semantic', 'video_semantic', ]
+#  DATASET_RATIO: [1.0, 0.5]
+#  DATASET_NEED_MAP: [False, False]
+#  DATASET_TYPE: ['image_semantic', 'video_semantic', ]
+#  DATASET_TYPE_TEST: ['video_semantic', ]
+#  # The categories of all datasets will be mapped to the categories of the last dataset
+#  TRAIN: ("human_sem_seg_train", "VSPW_vss_video_train")
+#  TEST: ("VSPW_vss_video_val",)
+  DATASET_RATIO: [1.0,]
+  DATASET_NEED_MAP: [False,]
+  DATASET_TYPE: ['video_semantic', ]
   DATASET_TYPE_TEST: ['video_semantic', ]
   # The categories of all datasets will be mapped to the categories of the last dataset
-  TRAIN: ("human_sem_seg_train", "VSPW_vss_video_train")
-  TEST: ("VSPW_vss_video_val",)
+  TRAIN: ("human_VSPW_vss_video_train")
+  TEST: ("human_VSPW_vss_video_val",)
 SOLVER:
   IMS_PER_BATCH: 16
   BASE_LR: 0.0001
