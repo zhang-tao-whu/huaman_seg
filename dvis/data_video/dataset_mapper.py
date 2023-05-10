@@ -727,7 +727,7 @@ class SemanticClipDatasetMapper:
             classes = classes[classes != self.ignore_label]
             print(classes)
             for _cls in classes:
-                if _cls not in self.ids_to_continue_dic:
+                if _cls not in self.src2tgt:
                     continue
                 anno = {"iscrowd": 0, "category_id": _cls, "id": _cls,
                         "bbox": np.array([0, 0, 0, 0]),
