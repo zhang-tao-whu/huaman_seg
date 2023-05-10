@@ -731,7 +731,7 @@ class SemanticClipDatasetMapper:
                     continue
                 anno = {"iscrowd": 0, "category_id": _cls, "id": _cls,
                         "bbox": np.array([0, 0, 0, 0]),
-                        "bbox_mode": BoxMode.XYXY_ABS, "segmentation": sem_seg == _cls}
+                        "bbox_mode": BoxMode.XYXY_ABS, "segmentation": np.ndarray(sem_seg == _cls)}
                 annotations.append(anno)
         dataset_dict_inst.update({'annotations': annotations})
         return dataset_dict_inst
